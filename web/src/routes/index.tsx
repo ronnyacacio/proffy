@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Landing from '../pages/Landing';
 
-export default function Routes() {
+const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -12,3 +12,5 @@ export default function Routes() {
     </BrowserRouter>
   );
 }
+
+export default Routes;
