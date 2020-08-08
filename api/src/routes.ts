@@ -9,5 +9,6 @@ routes.post('/classes', ClassController.store);
 routes.get('/classes', ClassController.index);
 
 routes.post('/connections', ConnectionController.store);
+routes.get('/connections', ConnectionController.index);
 
 export { routes };
