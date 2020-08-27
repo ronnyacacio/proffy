@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import { useFields } from '../../hooks/useFields';
@@ -20,7 +21,10 @@ interface IFieldGroup {
 }
 
 const TeacherForm: React.FC = () => {
-  const [scheduleItems, setScheduleItems] = useState([{ week_day: 0, from: '', to: '' }]);
+  const [scheduleItems, setScheduleItems] = useState([{ week_day: '', from: '', to: '' }]);
+
+  const history = useHistory();
+
   const [newClass, handleFieldChange] = useFields<IFieldGroup>({
     name: '',
     avatar: '',
@@ -31,7 +35,7 @@ const TeacherForm: React.FC = () => {
   });
 
   function addNewScheduleItem() {
-    setScheduleItems(prevState => [...prevState, { week_day: 0, from: '', to: '' }]);
+    setScheduleItems(prevState => [...prevState, { week_day: '', from: '', to: '' }]);
   }
 
   function setScheduleItemValue(position: number, field: string, value: string) {
@@ -51,7 +55,10 @@ const TeacherForm: React.FC = () => {
     const data = { ...newClass, cost: Number(newClass.cost), schedule: scheduleItems };
 
     api.post('classes', data)
-      .then(() => alert('Cadastro realizado com sucesso!'))
+      .then(() => {
+        alert('Cadastro realizado com sucesso!');
+        history.push('/');
+      })
       .catch(() => alert('Erro no cadastro!'));
   }
 
@@ -79,6 +86,7 @@ const TeacherForm: React.FC = () => {
             <Select
               name="subject"
               label="Matéria"
+              value={newClass.subject}
               options={[
                 { value: 'Artes', label: 'Artes' },
                 { value: 'Biologia', label: 'Biologia' },

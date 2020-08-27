@@ -15,10 +15,12 @@ export function useFields<T>(initialState: T): Response<T> {
 
   function handleFieldChange(
     event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
     >
   ) {
     const { name, value } = event.target;
+
+    console.log(name, value);
 
     setState((prevState) => ({ ...prevState, [name]: value }));
   }

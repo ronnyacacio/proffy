@@ -1,35 +1,52 @@
 import React from 'react';
 
+import api from '../../services/api';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
 
-const TeacherItem: React.FC = () => {
+export interface ITeacher {
+  avatar: string;
+  name: string;
+  subject: string;
+  bio: string;
+  cost: number;
+  whatsapp: string;
+  id: number;
+}
+
+interface Props {
+  teacher: ITeacher;
+}
+
+const TeacherItem: React.FC<Props> = ({ teacher }) => {
+  function createNewConnection() {
+    api.post('connections', {
+      user_id: teacher.id
+    });
+  }
+
   return (
     <article className="teacher-item">
       <header>
-        <img src="https://github.com/ronnyacacio.png" alt="Ronny Acácio" />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Ronny Acácio</strong>
-          <span>Física</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-        Entusiasta das melhores tecnologias de física teórica
-            <br /><br />
-            Apaixonado em explorar as estrelas coisas pelo telescópio e por mudar a vida das pessoas através de experiências. Mais de 200.000 pessoas já passaram por uma das minhas observações.
-          </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora:
-              <strong>R$ 100,00</strong>
+          <strong>{teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a href={`https://wa.me/${teacher.whatsapp}`} onClick={createNewConnection} target="blank">
           <img src={whatsappIcon} alt="WhatsApp" />
-              Entrar em contato
-            </button>
+          Entrar em contato
+        </a>
       </footer>
     </article>
   );
