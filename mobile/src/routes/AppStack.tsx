@@ -2,8 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Landing from '../screens/Landing';
+import Landing from '../screens/Landing'
 import GiveClasses from '../screens/GiveClasses';
+import StudyTabs from './StudyTabs';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -15,6 +16,7 @@ const AppStack: React.FC = () => {
       }}>
         <Screen name="Landing" component={Landing} />
         <Screen name="GiveClasses" component={GiveClasses} />
+        <Screen name="Study" component={StudyTabs} />
       </Navigator>
     </NavigationContainer>
   );
