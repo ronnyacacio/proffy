@@ -3,6 +3,7 @@ import { View, Image, Text, Linking } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RectButton } from 'react-native-gesture-handler';
 
+import api from '../../services/api';
 import heartOutlineIcon from '../../assets/images/icons/heart-outline.png';
 import unFavoriteIcon from '../../assets/images/icons/unfavorite.png';
 import whatsappIcon from '../../assets/images/icons/whatsapp.png';
@@ -29,6 +30,10 @@ const TeacherItem: React.FC<Props> = ({ teacher, favorited }) => {
 
   function handleLinkToWhatsapp() {
     Linking.openURL(`whatsapp://send?phone=${teacher.whatsapp}`);
+
+    api.post('connections', {
+      user_id: teacher.id
+    });
   }
 
   async function handleToggleFavorite() {
